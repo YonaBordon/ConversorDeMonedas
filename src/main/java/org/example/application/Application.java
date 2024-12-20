@@ -2,6 +2,7 @@ package org.example.application;
 
 import java.util.Scanner;
 
+import org.example.model.ExchangeRateData;
 import org.example.service.ExchangeAPIService;
 import org.example.utils.Screens;
 
@@ -35,8 +36,14 @@ public class Application {
   }
 
   private void testConnection() {
-    String response = exchangeAPIService.getExchangeRate();
-    System.out.println(response);
+    try {
+      ExchangeRateData response = exchangeAPIService.getExchangeRate();
+
+      System.out.println("Base Code: " + response.getBaseCode());
+      System.out.println("Conversion Rates: " + response.getConversionRates());
+    } catch (RuntimeException e) {
+      System.out.println(e.getMessage());
+    }
   }
 
 }

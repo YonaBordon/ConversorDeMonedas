@@ -2,6 +2,8 @@ package org.example.service;
 
 import java.io.IOException;
 import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 public class FetchAPI {
 
@@ -21,10 +23,10 @@ public class FetchAPI {
       throw new IllegalArgumentException("path cannot be null");
     }
     try {
-      var request = java.net.http.HttpRequest.newBuilder()
+      var request = HttpRequest.newBuilder()
           .uri(java.net.URI.create(baseURL + endpoint))
           .build();
-      var response = client.send(request, java.net.http.HttpResponse.BodyHandlers.ofString());
+      var response = client.send(request, HttpResponse.BodyHandlers.ofString());
       return response.body();
     } catch (IOException e) {
       return e.getMessage();
